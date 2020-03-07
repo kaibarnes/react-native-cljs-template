@@ -1,0 +1,11 @@
+{:source-paths ["src"]
+
+ :dependencies [[reagent "0.9.1" :exclusions [cljsjs/react cljsjs/react-dom]]
+                [rn-shadow-steroid "0.1.1"]]
+
+ :builds       {:dev
+                {:target     :react-native
+                 :init-fn    rnshadowcljs.core/init
+                 :output-dir "app"
+                 :devtools   {:autoload true
+                              :after-load steroid.rn.core/reload}}}}
