@@ -7,23 +7,24 @@
             steroid.rn.navigation.events
             [re-frame.core :as re-frame]))
 
+(defn button [{:keys [on-press title]}]
+  [rn/touchable-opacity {:on-press on-press :style {:margin 20}}
+   [rn/view {:style {:background-color :gray :padding 5}}
+    [rn/text title]]])
+
 (defn home-screen []
   [rn/safe-area-view {:flex 1}
    [rn/view {:style {:flex 1 :justify-content :center :align-items :center}}
     [rn/text "Home"]
-    [rn/touchable-opacity {:on-press #(re-frame/dispatch [:navigate-to :modal])
-                           :style {:margin-top 20}}
-     [rn/view {:style {:background-color :gray :padding 5}}
-      [rn/text "Open modal"]]]]])
+    [button {:on-press #(re-frame/dispatch [:navigate-to :modal])
+             :title "Open modal"}]]])
 
 (defn modal-screen []
   [rn/safe-area-view {:flex 1}
    [rn/view {:style {:flex 1 :justify-content :center :align-items :center}}
     [rn/text "This is a modal"]
-    [rn/touchable-opacity {:on-press #(re-frame/dispatch [:navigate-back])
-                           :style {:margin-top 20}}
-     [rn/view {:style {:background-color :gray :padding 5}}
-      [rn/text "Dismiss"]]]]])
+    [button {:on-press #(re-frame/dispatch [:navigate-back])
+             :title "Dismiss"}]]])
 
 (defn tabs-screen []
   (let [[navigator screen] (bottom-tabs/create-bottom-tab-navigator)
