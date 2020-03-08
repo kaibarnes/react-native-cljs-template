@@ -1,7 +1,8 @@
 {:source-paths ["src"]
 
  :dependencies [[reagent "0.9.1" :exclusions [cljsjs/react cljsjs/react-dom]]
-                [rn-shadow-steroid "0.1.1"]]
+                [rn-shadow-steroid "0.1.1"]
+                [re-frame "0.11.0"]]
 
  :builds       {:dev
                 {:target     :react-native
