@@ -5,7 +5,9 @@
             [steroid.rn.navigation.bottom-tabs :as bottom-tabs]
             [steroid.rn.navigation.stack :as stack]
             steroid.rn.navigation.events
-            [re-frame.core :as re-frame]))
+            [re-frame.core :as re-frame]
+            [rnshadowcljs.events]
+            [rnshadowcljs.subs]))
 
 (defn button [{:keys [on-press title]}]
   [rn/touchable-opacity {:on-press on-press :style {:margin 20}}
@@ -16,6 +18,9 @@
   [rn/safe-area-view {:flex 1}
    [rn/view {:style {:flex 1 :justify-content :center :align-items :center}}
     [rn/text "Home"]
+    [rn/text "The count is " @(re-frame/subscribe [:count])]
+    [button {:on-press #(re-frame/dispatch [:increase-count])
+             :title "Increase"}]
     [button {:on-press #(re-frame/dispatch [:navigate-to :modal])
              :title "Open modal"}]]])
 
@@ -50,4 +55,5 @@
                               :title "Modal"}}]]]])))
 
 (defn init []
+  (re-frame/dispatch-sync [:initialize])
   (rn/register-comp "RNShadowCLJS" root-stack))
