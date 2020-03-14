@@ -1,8 +1,16 @@
 (ns rnshadowcljs.events
-  (:require [re-frame.core :refer [reg-event-db]]))
+  (:require [re-frame.core :refer [reg-event-db path after]]
+            [rnshadowcljs.db :refer [default-db]]
+            [cljs.spec.alpha :as s]))
 
-(def default-db
-  {:count 0})
+(defn check-and-throw [spec db]
+  (when-not (s/valid? spec db)
+    (throw (ex-info (str "spec check failed: " (s/explain-str spec db)) {}))))
+
+(def check-spec-interceptor (after (partial check-and-throw :rnshadowcljs.db/db)))
+
+(def count-interceptors [check-spec-interceptor
+                         (path :count)])
 
 (reg-event-db
  :initialize
@@ -11,5 +19,6 @@
 
 (reg-event-db
  :increase-count
- (fn [db _]
-   (update db :count inc)))
+ count-interceptors
+ (fn [count _]
+   (inc count)))
