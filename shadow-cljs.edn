@@ -9,4 +9,8 @@
                  :init-fn    rnshadowcljs.core/init
                  :output-dir "app"
                  :devtools   {:autoload true
-                              :after-load steroid.rn.core/reload}}}}
+                              :after-load steroid.rn.core/reload}}
+               :test
+                {:target    :node-test
+                 :output-to "out/node-tests.js"
+                 :autorun   true}}}

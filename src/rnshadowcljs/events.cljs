@@ -17,8 +17,10 @@
  (fn [_ _]
    default-db))
 
+(defn increase-count [count _]
+  (inc count))
+
 (reg-event-db
  :increase-count
  count-interceptors
- (fn [count _]
-   (inc count)))
+ increase-count)

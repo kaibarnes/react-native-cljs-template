@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "shadow-cljs watch test"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.7",
