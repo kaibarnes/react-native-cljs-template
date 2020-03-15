@@ -59,7 +59,11 @@ buck-out/
 /ios/Pods/
 
 # CLJS
-app
 .shadow-cljs
+app/
 out/
 
+# App project files
+# These should be unignored for use in projects
+ios/
+android/
